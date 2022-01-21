@@ -9,6 +9,6 @@ import Foundation
 
 public protocol InterfaceElement
 {
-    func handle(event: Event)
+    func handle(command: Command)
     func display()
 }

@@ -17,7 +17,7 @@ open class NavigationItem
     }
 }
 
-public extension NavigationItem: CustomStringConvertible
+extension NavigationItem: CustomStringConvertible
 {
-    var description: String { title }
+    public var description: String { title }
 }

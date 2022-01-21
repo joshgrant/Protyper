@@ -7,8 +7,10 @@
 
 import Foundation
 
-open class ViewController: InterfaceElement
+open class ViewController: InterfaceElement, Identifiable
 {
+    public var id = UUID()
+    
     public var title: String? = nil
     
     public var navigationItem: NavigationItem?
@@ -28,30 +30,28 @@ open class ViewController: InterfaceElement
         self.tabBarItem = .init(title: title ?? "")
     }
 
-    public func handle(event: Event)
+    open func handle(command: Command)
     {
-        view.handle(event: event)
+        view.handle(command: command)
     }
     
-    public func display()
+    open func display()
     {
         view.display()
     }
 }
 
-public extension ViewController: Identifiable { }
-
-public extension ViewController: Equatable
+extension ViewController: Equatable
 {
-    static func ==(lhs: ViewController, rhs: ViewController) -> Bool
+    public static func ==(lhs: ViewController, rhs: ViewController) -> Bool
     {
         return lhs.id == rhs.id
     }
 }
 
-public extension ViewController: Hashable
+extension ViewController: Hashable
 {
-    func hash(into hasher: inout Hasher)
+    public func hash(into hasher: inout Hasher)
     {
         hasher.combine(id)
     }

@@ -15,6 +15,11 @@ open class TabBarController: ViewController
     public var tabBar: TabBar
     public var selectedIndex: Int
     
+    public var activeTab: ViewController
+    {
+        return tabs[selectedIndex]
+    }
+    
     // MARK: - Initialization
     
     public init(tabs: [ViewController])
@@ -44,27 +49,9 @@ open class TabBarController: ViewController
         selectedIndex = index ?? 0
     }
     
-    public func activeTab() -> ViewController
-    {
-        return tabs[selectedIndex]
-    }
-    
     override public func display()
     {
-        activeTab().display()
+        activeTab.display()
         tabBar.display()
-    }
-    
-    override public func handle(event: Event)
-    {
-        switch event.rawString
-        {
-        case "dashboard":
-            selectedIndex = 0
-        case "library":
-            selectedIndex = 1
-        default:
-            activeTab().handle(event: event)
-        }
     }
 }

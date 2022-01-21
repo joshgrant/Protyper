@@ -55,14 +55,14 @@ open class NavigationController: ViewController
         activeController.display()
     }
     
-    override public func handle(event: Event)
+    override public func handle(command: Command)
     {
-        switch event.rawString
+        switch command.rawString
         {
         case "back":
             _ = pop()
         default:
-            activeController.handle(event: event)
+            activeController.handle(command: command)
         }
     }
     

@@ -17,7 +17,7 @@ open class TabBarItem
     }
 }
 
-public extension TabBarItem: CustomStringConvertible
+extension TabBarItem: CustomStringConvertible
 {
-    var description: String { title }
+    public var description: String { title }
 }
