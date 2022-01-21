@@ -7,13 +7,13 @@
 
 import Foundation
 
-class TableSelectionCommand: Command
+open class TableSelectionCommand: Command
 {
-    var section: Int?
-    var row: Int?
-    var action: String?
+    public var section: Int?
+    public var row: Int?
+    public var action: String?
     
-    init?(command: Command)
+    public init?(command: Command)
     {
         super.init(rawString: command.rawString)
         
