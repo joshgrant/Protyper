@@ -21,3 +21,8 @@ extension NavigationItem: CustomStringConvertible
 {
     public var description: String { title }
 }
+
+extension NavigationItem
+{
+    static let back = NavigationItem(title: "< ")
+}

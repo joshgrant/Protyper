@@ -44,6 +44,12 @@ open class NavigationController: ViewController
         {
             items += [item]
         }
+        
+        if activeController != stack.first
+        {
+            items.insert(.back, at: 0)
+        }
+        
         self.navigationBar = NavigationBar(items: items)
     }
     

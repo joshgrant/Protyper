@@ -19,9 +19,10 @@ open class ViewController: InterfaceElement, Identifiable
     public var tabBarItem: TabBarItem?
     public var tabController: TabBarController?
     
-    public var view: View
+    /// If view is `nil`, make sure to override the `display` function in your view controller
+    public var view: View?
     
-    public init(title: String? = nil, view: View)
+    public init(title: String? = nil, view: View? = nil)
     {
         self.title = title
         self.view = view
@@ -32,11 +33,17 @@ open class ViewController: InterfaceElement, Identifiable
 
     open func handle(command: Command)
     {
-        view.handle(command: command)
+        view?.handle(command: command)
     }
     
     open func display()
     {
+        guard let view = view else
+        {
+            assertionFailure("Please use a custom view or override `display` in your view controller")
+            return
+        }
+        
         view.display()
     }
 }
