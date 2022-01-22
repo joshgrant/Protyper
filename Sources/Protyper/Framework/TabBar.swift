@@ -18,8 +18,8 @@ open class TabBar: View
     
     override public func display()
     {
-        print("––––––––––––––––––––")
+        print("–––––––––––––––––––––––––––––––––")
         print(items)
-        print("––––––––––––––––––––")
+        print("–––––––––––––––––––––––––––––––––")
     }
 }

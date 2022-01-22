@@ -28,6 +28,6 @@ open class NavigationBar: View
             print(item, terminator: "")
         }
         print("")
-        print("––––––––––––––––––––")
+        print("–––––––––––––––––––––––––––––––––")
     }
 }
