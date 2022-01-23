@@ -10,16 +10,22 @@ import Foundation
 open class NavigationItem
 {
     public var title: String
+    public var rightItem: String?
     
-    public init(title: String)
+    public init(title: String, rightItem: String? = nil)
     {
         self.title = title
+        self.rightItem = rightItem
     }
 }
 
 extension NavigationItem: CustomStringConvertible
 {
-    public var description: String { title }
+    public var description: String
+    {
+        let right = "          \(rightItem ?? "")"
+        return "\(title)\(right)"
+    }
 }
 
 extension NavigationItem
