@@ -19,6 +19,11 @@ open class ViewController: Identifiable
     public var tabBarItem: TabBarItem?
     public var tabController: TabBarController?
     
+    /// The view controller that is being presented by this controller
+    public var presentedViewController: ViewController?
+    /// The view controller that is presenting this controller
+    public var presentingViewController: ViewController?
+    
     /// If view is `nil`, make sure to override the `display` function in your view controller
     public var view: View?
     
@@ -33,11 +38,22 @@ open class ViewController: Identifiable
 
     open func handle(command: Command)
     {
+        if let presentedViewController = presentedViewController
+        {
+            presentedViewController.handle(command: command)
+            return
+        }
+        
         view?.handle(command: command)
     }
     
     open func display()
     {
+        if let presentedViewController = presentedViewController {
+            presentedViewController.display()
+            return
+        }
+        
         guard let view = view else
         {
             assertionFailure("Please use a custom view or override `display` in your view controller")
@@ -45,6 +61,19 @@ open class ViewController: Identifiable
         }
         
         print(view.content, terminator: "")
+    }
+    
+    open func present(controller: ViewController)
+    {
+        guard presentedViewController == nil else { fatalError("Already presenting a view controller") }
+        self.presentedViewController = controller
+        controller.presentingViewController = self
+    }
+    
+    open func dismiss()
+    {
+        self.presentingViewController?.presentedViewController = nil
+        self.presentingViewController = nil
     }
 }
 
