@@ -47,6 +47,8 @@ open class ViewController: Identifiable
         view?.handle(command: command)
     }
     
+    // TODO: Should have to call super.display()... or something else because presented
+    // view controllers aren't showing properly...
     open func display()
     {
         if let presentedViewController = presentedViewController {
@@ -72,7 +74,13 @@ open class ViewController: Identifiable
     
     open func dismiss()
     {
-        self.presentingViewController?.presentedViewController = nil
+        guard let presentingViewController = presentingViewController else
+        {
+            navigationController?.dismiss()
+            return
+        }
+
+        presentingViewController.presentedViewController = nil
         self.presentingViewController = nil
     }
 }
