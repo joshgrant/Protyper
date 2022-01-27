@@ -26,6 +26,12 @@ open class ViewController: Identifiable
     
     /// If view is `nil`, make sure to override the `display` function in your view controller
     public var view: View?
+    {
+        didSet
+        {
+            viewDidLoad()
+        }
+    }
     
     public init(title: String? = nil, view: View? = nil)
     {
@@ -47,14 +53,20 @@ open class ViewController: Identifiable
         view?.handle(command: command)
     }
     
-    // TODO: Should have to call super.display()... or something else because presented
-    // view controllers aren't showing properly...
-    open func display()
+    open func viewDidLoad()
     {
-        if let presentedViewController = presentedViewController {
-            presentedViewController.display()
+        if let presentedViewController = presentedViewController
+        {
+            presentedViewController.viewDidLoad()
             return
         }
+    }
+    
+    open func viewWillAppear() { }
+    
+    open func viewDidAppear()
+    {
+        viewWillAppear()
         
         guard let view = view else
         {

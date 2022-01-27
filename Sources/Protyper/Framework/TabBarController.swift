@@ -49,9 +49,10 @@ open class TabBarController: ViewController
         selectedIndex = index ?? 0
     }
     
-    override public func display()
+    open override func viewDidAppear()
     {
-        activeTab.display()
-        print(tabBar.content)
+        super.viewDidAppear()
+        activeTab.viewDidAppear()
+        tabBar.draw()
     }
 }

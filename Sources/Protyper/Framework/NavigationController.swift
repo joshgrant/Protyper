@@ -55,10 +55,17 @@ open class NavigationController: ViewController
     
     // MARK: - Functions
     
-    override public func display()
+    open override func viewWillAppear()
     {
-        print(navigationBar.content)
-        activeController.display()
+        super.viewWillAppear()
+        updateItems()
+    }
+    
+    override public func viewDidAppear()
+    {
+        super.viewDidAppear()
+        navigationBar.draw()
+        activeController.viewDidAppear()
     }
     
     override public func handle(command: Command)

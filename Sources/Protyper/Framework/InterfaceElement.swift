@@ -10,5 +10,7 @@ import Foundation
 public protocol InterfaceElement
 {
     var content: String { get }
+    
+    func draw()
     func handle(command: Command)
 }

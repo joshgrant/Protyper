@@ -19,6 +19,11 @@ open class View: InterfaceElement
         return ""
     }
     
+    open func draw()
+    {
+        print(content)
+    }
+    
     open func handle(command: Command)
     {
         
