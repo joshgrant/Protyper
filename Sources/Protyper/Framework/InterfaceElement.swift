@@ -9,6 +9,6 @@ import Foundation
 
 public protocol InterfaceElement
 {
+    var content: String { get }
     func handle(command: Command)
-    func display()
 }

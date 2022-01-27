@@ -17,17 +17,19 @@ open class NavigationBar: View
         super.init()
     }
     
-    override public func display()
+    open override var content: String
     {
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        for item in items {
-            print(item, terminator: "")
+        var output = ""
+        
+        output += .newline * 5
+        for item in items
+        {
+            output += item.description
         }
-        print("")
-        print("–––––––––––––––––––––––––––––––––")
+        output += .newline
+        output += .divider
+        output += .newline
+        
+        return output
     }
 }

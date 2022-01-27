@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class ViewController: InterfaceElement, Identifiable
+open class ViewController: Identifiable
 {
     public var id = UUID()
     
@@ -44,7 +44,7 @@ open class ViewController: InterfaceElement, Identifiable
             return
         }
         
-        view.display()
+        print(view.content, terminator: "")
     }
 }
 

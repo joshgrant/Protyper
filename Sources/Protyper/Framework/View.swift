@@ -14,9 +14,9 @@ open class View: InterfaceElement
         
     }
     
-    open func display()
+    open var content: String
     {
-        
+        return ""
     }
     
     open func handle(command: Command)

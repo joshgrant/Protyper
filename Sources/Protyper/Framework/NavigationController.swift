@@ -57,7 +57,7 @@ open class NavigationController: ViewController
     
     override public func display()
     {
-        navigationBar.display()
+        print(navigationBar.content)
         activeController.display()
     }
     

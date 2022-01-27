@@ -16,10 +16,19 @@ open class TabBar: View
         self.items = items
     }
     
-    override public func display()
+    open override var content: String
     {
-        print("–––––––––––––––––––––––––––––––––")
-        print(items)
-        print("–––––––––––––––––––––––––––––––––")
+        var output = ""
+        
+        output += .divider
+        output += .newline
+        
+        output += items.description
+        output += .newline
+        
+        output += .divider
+        output += .newline
+        
+        return output
     }
 }

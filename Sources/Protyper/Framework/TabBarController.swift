@@ -52,6 +52,6 @@ open class TabBarController: ViewController
     override public func display()
     {
         activeTab.display()
-        tabBar.display()
+        print(tabBar.content)
     }
 }
