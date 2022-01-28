@@ -75,29 +75,31 @@ open class ViewController: Responder, Identifiable
     {
         self.title = title
     }
-    
+
+    // MARK: - View lifecycle
+
     open func loadView()
     {
         view = View()
+        view?.controller = self
     }
     
     /// This method is called after the view controller has loaded its view hierarchy into memory.
     /// You usually override this method to perform additional initialization on views that were loaded from nib files (so in general
     /// not the function we need)
-    open func viewDidLoad()
-    {
-        if let presentedViewController = presentedViewController
-        {
-            presentedViewController.viewDidLoad()
-            return
-        }
-    }
+    open func viewDidLoad() { }
     
     /// This method is called before the view controller's view is about to be added to a view hierarchy
     open func viewWillAppear() { }
-    
     open func viewDidAppear() { }
-    
+    open func viewWilDisappear() { }
+    open func viewDidDisappear() { }
+}
+
+// MARK: - Modal presentation
+
+extension ViewController
+{
     open func present(controller: ViewController)
     {
         guard presentedViewController == nil else { fatalError("Already presenting a view controller") }
@@ -115,22 +117,6 @@ open class ViewController: Responder, Identifiable
 
         presentingViewController.presentedViewController = nil
         self.presentingViewController = nil
-    }
-}
-
-extension ViewController: Equatable
-{
-    public static func ==(lhs: ViewController, rhs: ViewController) -> Bool
-    {
-        return lhs.id == rhs.id
-    }
-}
-
-extension ViewController: Hashable
-{
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(id)
     }
 }
 
@@ -163,5 +149,21 @@ extension ViewController
         parent?.children.removeAll { $0 == self }
         parent = nil
         didMove(toParent: nil)
+    }
+}
+
+extension ViewController: Equatable
+{
+    public static func ==(lhs: ViewController, rhs: ViewController) -> Bool
+    {
+        return lhs.id == rhs.id
+    }
+}
+
+extension ViewController: Hashable
+{
+    public func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(id)
     }
 }

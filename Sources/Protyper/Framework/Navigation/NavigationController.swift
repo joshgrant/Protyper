@@ -56,6 +56,12 @@ open class NavigationController: ViewController
     
     // MARK: - Functions
     
+    open override func loadView()
+    {
+        view = View()
+        addNavigationControllerToViewHierarchy()
+    }
+    
     open override func viewWillAppear()
     {
         super.viewWillAppear()
@@ -83,9 +89,13 @@ open class NavigationController: ViewController
     /// Adds a controller to the top of the stack and gives it control
     public func push(controller: ViewController)
     {
+        removeNavigationControllerFromViewHierarchy()
+        
         stack.append(controller)
         activeController = controller
         activeController.navigationController = self
+        
+        addNavigationControllerToViewHierarchy()
         
         updateItems()
     }
@@ -95,15 +105,39 @@ open class NavigationController: ViewController
     public func pop() -> ViewController?
     {
         guard stack.count > 1 else { return nil }
+        
+        removeNavigationControllerFromViewHierarchy()
         let removed = stack.popLast()
         removed?.navigationController = nil
+        
         if let last = stack.last
         {
             activeController = last
+            addNavigationControllerToViewHierarchy()
         }
         
         updateItems()
         
         return removed
+    }
+}
+
+// MARK: - Container
+
+extension NavigationController
+{
+    func addNavigationControllerToViewHierarchy()
+    {
+        guard let navigationView = activeController.view else { return }
+        addChild(activeController)
+        view?.insertSubview(navigationView, at: 1)
+        activeController.didMove(toParent: self)
+    }
+    
+    func removeNavigationControllerFromViewHierarchy()
+    {
+        activeController.willMove(toParent: nil)
+        activeController.view?.removeFromSuperview()
+        activeController.removeFromParent()
     }
 }

@@ -18,7 +18,6 @@ class TableFooterView: View
     
     override func draw()
     {
-        var output = title + .newline
-        print(output)
+        print(title)
     }
 }

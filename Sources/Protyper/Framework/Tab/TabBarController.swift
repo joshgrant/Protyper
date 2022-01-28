@@ -43,6 +43,7 @@ open class TabBarController: ViewController
     
     open override func loadView()
     {
+        view = View()
         addActiveTabToViewHierarchy()
     }
     
@@ -58,13 +59,6 @@ open class TabBarController: ViewController
         addActiveTabToViewHierarchy()
     }
     
-    func removeActiveTabFromViewHierarchy()
-    {
-        activeTab.willMove(toParent: nil)
-        activeTab.view?.removeFromSuperview()
-        activeTab.removeFromParent()
-    }
-    
     func addActiveTabToViewHierarchy()
     {
         guard let activeTabView = activeTab.view else { return }
@@ -74,13 +68,10 @@ open class TabBarController: ViewController
         activeTab.didMove(toParent: self)
     }
     
-//    open override func viewDidAppear()
-//    {
-//        // TODO: Yeah, not the right place for this...
-//        // These should be managed by the view...
-//        // We should add the active tab and the tab bar as subviews to the controller's view...
-//        super.viewDidAppear()
-//        activeTab.viewDidAppear()
-//        tabBar.draw()
-//    }
+    func removeActiveTabFromViewHierarchy()
+    {
+        activeTab.willMove(toParent: nil)
+        activeTab.view?.removeFromSuperview()
+        activeTab.removeFromParent()
+    }
 }

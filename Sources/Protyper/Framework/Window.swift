@@ -15,8 +15,20 @@ open class Window: View
     /// installs the view controller’s view as the content view of the window.
     public var rootViewController: ViewController?
     
+    override public init() { }
+    
     override open func draw()
     {
         rootViewController?.view?.draw()
+    }
+    
+    open func makeVisible()
+    {
+        rootViewController?.loadView()
+        rootViewController?.viewDidLoad()
+        
+        rootViewController?.viewWillAppear()
+        rootViewController?.view?.draw()
+        rootViewController?.viewDidAppear()
     }
 }

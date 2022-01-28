@@ -43,22 +43,9 @@ open class View: Responder, Identifiable
         set { super.next = newValue }
     }
     
-    override public init()
-    {
-        
-    }
+    override public init() { }
     
-    // TODO: Remember to call `super`
-    open func draw()
-    {
-        for view in subviews
-        {
-            view.draw()
-        }
-        
-        draw()
-        needsToRedraw = false
-    }
+    open func draw() { }
     
     func setNeedsDisplay()
     {
