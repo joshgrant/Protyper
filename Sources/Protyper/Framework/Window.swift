@@ -19,6 +19,22 @@ open class Window: View
     
     public override func update()
     {
+//        print("\u{001B}[2J") // Clear the screen
+//        system("clear")
+        let script = NSAppleScript(source: """
+                                    activate application "Xcode"
+
+                                    tell application "System Events" to tell process "Xcode"
+                                        
+                                        click menu item "Clear Console" of menu 1 of menu item "Debug Workflow" of menu 1 of menu bar item "Debug" of menu bar 1
+                                        
+                                    end tell
+""")
+        var error: NSDictionary?
+        script?.executeAndReturnError(&error)
+        if let error = error {
+            print(error)
+        }
         // TODO: This seems strange
         rootViewController?.view?.update()
     }
