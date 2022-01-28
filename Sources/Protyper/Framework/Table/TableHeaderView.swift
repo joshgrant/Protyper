@@ -18,7 +18,6 @@ class TableHeaderView: View
     
     override func draw()
     {
-        var output = title + .newline + .divider
-        print(output)
+        print(title + .newline + .divider)
     }
 }

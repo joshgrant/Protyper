@@ -56,6 +56,7 @@ open class View: Responder, Identifiable
             view.draw()
         }
         
+        draw()
         needsToRedraw = false
     }
     
@@ -70,6 +71,33 @@ open class View: Responder, Identifiable
     {
         subviews.append(view)
         view.superview = self
+    }
+    
+    func insertSubview(_ view: View, at index: Int)
+    {
+        subviews.insert(view, at: index)
+    }
+    
+    func insertSubview(_ view: View, below subview: View)
+    {
+        guard let index = subviews.firstIndex(of: subview) else
+        {
+            fatalError("No subview matching: \(subview)")
+        }
+        
+        let newIndex = subviews.index(before: index)
+        subviews.insert(view, at: newIndex)
+    }
+    
+    func insertSubview(_ view: View, above subview: View)
+    {
+        guard let index = subviews.firstIndex(of: subview) else
+        {
+            fatalError("No subview matching: \(subview)")
+        }
+        
+        let newIndex = subviews.index(after: index)
+        subviews.insert(view, at: newIndex)
     }
     
     private func removeSubview(_ view: View)
