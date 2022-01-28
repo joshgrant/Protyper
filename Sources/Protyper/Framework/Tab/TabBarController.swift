@@ -13,7 +13,14 @@ open class TabBarController: ViewController
     
     public let tabs: [ViewController]
     public var tabBar: TabBar
-    public var selectedIndex: Int
+    public var selectedIndex: Int {
+        willSet {
+            removeActiveTabFromViewHierarchy()
+        }
+        didSet {
+            addActiveTabToViewHierarchy()
+        }
+    }
     
     public var activeTab: ViewController
     {
@@ -45,19 +52,10 @@ open class TabBarController: ViewController
     {
         view = View()
         addActiveTabToViewHierarchy()
+        view?.addSubview(tabBar)
     }
     
     // MARK: - Functions
-    
-    public func select(tab: ViewController)
-    {
-        removeActiveTabFromViewHierarchy()
-        
-        let index = tabs.firstIndex { $0 == tab }
-        selectedIndex = index ?? 0
-
-        addActiveTabToViewHierarchy()
-    }
     
     func addActiveTabToViewHierarchy()
     {

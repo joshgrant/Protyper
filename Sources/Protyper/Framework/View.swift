@@ -66,6 +66,7 @@ open class View: Responder, Identifiable
     func insertSubview(_ view: View, at index: Int)
     {
         subviews.insert(view, at: index)
+        view.superview = self
     }
     
     func insertSubview(_ view: View, below subview: View)
@@ -77,6 +78,7 @@ open class View: Responder, Identifiable
         
         let newIndex = subviews.index(before: index)
         subviews.insert(view, at: newIndex)
+        view.superview = self
     }
     
     func insertSubview(_ view: View, above subview: View)
@@ -88,6 +90,7 @@ open class View: Responder, Identifiable
         
         let newIndex = subviews.index(after: index)
         subviews.insert(view, at: newIndex)
+        view.superview = self
     }
     
     private func removeSubview(_ view: View)
