@@ -48,7 +48,7 @@ open class Responder
     
     /// The default implementation of this method forwards the message up the responder chain.
     /// When creating your own subclasses, call super to forward any commands that you do not handle yourself.
-    public func handle(command: Command)
+    open func handle(command: Command)
     {
         next?.handle(command: command)
     }

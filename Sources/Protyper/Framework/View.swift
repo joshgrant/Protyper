@@ -14,7 +14,7 @@ import Foundation
 /// You do this by calling your view’s setNeedsDisplay() or setNeedsDisplay(_:) method of the view.
 /// These methods let the system know that it should update the view during the next drawing cycle.
 /// Because it waits until the next drawing cycle to update the view, you can call these methods on multiple views to update them at the same time.
-open class View: Responder, InterfaceElement, Identifiable
+open class View: Responder, Identifiable
 {
     public var id = UUID()
     
@@ -34,6 +34,8 @@ open class View: Responder, InterfaceElement, Identifiable
     /// NOTE: I'm assuming if `true`, that the view doesn't forward events to the parent view controller
     var isExclusiveTouch: Bool = false
     
+    private var needsToRedraw: Bool = false
+    
     /// UIView implements this method and returns the UIViewController object that manages it (if it has one) or its superview (if it doesn’t)
     override var next: Responder?
     {
@@ -46,18 +48,20 @@ open class View: Responder, InterfaceElement, Identifiable
         
     }
     
-    open var content: String
-    {
-        return ""
-    }
-    
+    // TODO: Remember to call `super`
     open func draw()
     {
-        print(content, terminator: "")
+        for view in subviews
+        {
+            view.draw()
+        }
+        
+        needsToRedraw = false
     }
     
     func setNeedsDisplay()
     {
+        needsToRedraw = true
         // Tells the system to redraw this view on the next update cycle
         superview?.setNeedsDisplay()
     }

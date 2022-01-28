@@ -17,42 +17,38 @@ open class TableView: View
         
     }
     
-    open override var content: String
+    open override func draw()
     {
-        var output: String = ""
+        guard let dataSource = dataSource else { fatalError("\(self) does not have a data source") }
         
-        let numberOfSections = dataSource?.numberOfSections(in: self) ?? 1
+        let numberOfSections = dataSource.numberOfSections(in: self)
         for section in 0 ..< numberOfSections
         {
-            if let header = dataSource?.tableView(self, titleForHeaderInSection: section)
+            if let header = dataSource.tableView(self, titleForHeaderInSection: section)
             {
-                output += header
-                output += .newline
-                output += .divider
-                output += .newline
+                let headerView = TableHeaderView(title: header)
+                headerView.draw()
             }
             
-            let numberOfRows = dataSource?.tableView(self, numberOfRowsInSection: section) ?? 0
+            let numberOfRows = dataSource.tableView(self, numberOfRowsInSection: section)
             for row in 0 ..< numberOfRows
             {
                 let indexPath = Index(section: section, row: row)
-                let cell = dataSource?.tableView(self, cellForRowAt: indexPath)
-                output += cell?.content ?? ""
-                output += .newline
+                let cell = dataSource.tableView(self, cellForRowAt: indexPath)
+                cell.draw()
+                print("")
             }
             
-            if let footer = dataSource?.tableView(self, titleForFooterInSection: section)
+            if let footer = dataSource.tableView(self, titleForFooterInSection: section)
             {
-                output += footer
-                output += .newline
+                let footerView = TableFooterView(title: footer)
+                footerView.draw()
             }
             else
             {
-                output += .newline
+                print("")
             }
         }
-        
-        return output
     }
     
     open override func handle(command: Command)

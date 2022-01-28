@@ -15,5 +15,8 @@ open class TextView: View
         self.text = text
     }
     
-    open override var content: String { text }
+    open override func draw()
+    {
+        print(text, terminator: "")
+    }
 }

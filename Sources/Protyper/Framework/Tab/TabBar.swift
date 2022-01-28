@@ -16,10 +16,9 @@ open class TabBar: View
         self.items = items
     }
     
-    open override var content: String
+    open override func draw()
     {
         var output = ""
-        
         output += .divider
         output += .newline
         
@@ -29,6 +28,6 @@ open class TabBar: View
         output += .divider
         output += .newline
         
-        return output
+        print(output, terminator: "")
     }
 }

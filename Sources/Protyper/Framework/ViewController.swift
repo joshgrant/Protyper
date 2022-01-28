@@ -21,9 +21,6 @@ open class ViewController: Responder, Identifiable
 {
     public var id = UUID()
     
-    var parent: ViewController?
-    var children: [ViewController] = []
-    
     /// UIViewController similarly implements the method and returns its view’s superview.
     /// TODO: Presented view controller
     override var next: Responder? {
@@ -41,6 +38,11 @@ open class ViewController: Responder, Identifiable
         }
     }
     
+    /// If the recipient is a child of a container view controller, this property holds the view controller it is contained in.
+    /// If the recipient has no parent, the value in this property is nil.
+    var parent: ViewController?
+    var children: [ViewController] = []
+    
     public var navigationItem: NavigationItem?
     
     /// The nearest ancestor in the view controller hierarchy that is a navigation controller.
@@ -51,10 +53,6 @@ open class ViewController: Responder, Identifiable
     /// This property is nil if the view controller is not embedded inside a tab bar controller.
     public var tabController: TabBarController?
     public var tabBarItem: TabBarItem?
-    
-    /// If the recipient is a child of a container view controller, this property holds the view controller it is contained in.
-    /// If the recipient has no parent, the value in this property is nil.
-    public var parent: ViewController?
     
     /// The view controller that is being presented by this controller
     public var presentedViewController: ViewController?
@@ -77,18 +75,6 @@ open class ViewController: Responder, Identifiable
     {
         self.title = title
     }
-
-    // Uses the "next" responder...
-//    open override func handle(command: Command)
-//    {
-//        if let presentedViewController = presentedViewController
-//        {
-//            presentedViewController.handle(command: command)
-//            return
-//        }
-//
-//        view?.handle(command: command)
-//    }
     
     open func loadView()
     {
@@ -100,7 +86,6 @@ open class ViewController: Responder, Identifiable
     /// not the function we need)
     open func viewDidLoad()
     {
-        //
         if let presentedViewController = presentedViewController
         {
             presentedViewController.viewDidLoad()
@@ -111,18 +96,7 @@ open class ViewController: Responder, Identifiable
     /// This method is called before the view controller's view is about to be added to a view hierarchy
     open func viewWillAppear() { }
     
-    open func viewDidAppear()
-    {
-        viewWillAppear()
-        
-        guard let view = view else
-        {
-            assertionFailure("Please use a custom view or override `display` in your view controller")
-            return
-        }
-        
-        print(view.content, terminator: "")
-    }
+    open func viewDidAppear() { }
     
     open func present(controller: ViewController)
     {
@@ -174,12 +148,12 @@ extension ViewController
     
     func didMove(toParent: ViewController?)
     {
-        
+        // Does this do anything?
     }
     
     func willMove(toParent: ViewController?)
     {
-        
+        // Does this do anything?
     }
     
     /// Removes the view controller from its parent

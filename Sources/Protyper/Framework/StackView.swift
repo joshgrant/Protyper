@@ -33,24 +33,19 @@ open class StackView: View
         views.insert(view, at: index)
     }
     
-    open override var content: String
+    open override func draw()
     {
-        var output: String = ""
-        
         for view in views
         {
-            let content = view.content
-            output += content
+            view.draw()
             
             switch axis
             {
             case .horizontal:
-                output += (" " * spacing)
+                print(" " * spacing, terminator: "")
             case .vertical:
-                output += ("\n" * spacing)
+                print("")
             }
         }
-        
-        return output
     }
 }

@@ -17,7 +17,7 @@ open class NavigationBar: View
         super.init()
     }
     
-    open override var content: String
+    open override func draw()
     {
         var output = ""
         
@@ -30,6 +30,6 @@ open class NavigationBar: View
         output += .divider
         output += .newline
         
-        return output
+        print(output, terminator: "")
     }
 }

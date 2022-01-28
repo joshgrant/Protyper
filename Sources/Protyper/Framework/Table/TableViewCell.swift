@@ -12,7 +12,6 @@ open class TableViewCell: View
     private var stackView: StackView
     
     public var accessories: [CellAccessory]
-    public var contentView: View?
     
     public var indentationLevel: Int = 0
     public var indentationWidth: Int = 0
@@ -21,7 +20,6 @@ open class TableViewCell: View
     public init(contentView: View?, accessories: [CellAccessory])
     {
         self.stackView = StackView()
-        self.contentView = contentView
         self.accessories = accessories
         
         let leadingAccessories = accessories.filter { $0.placement == .leading }
@@ -47,11 +45,10 @@ open class TableViewCell: View
         {
             stackView.addArrangedSubview(trailing.view)
         }
-    }
-    
-    open override var content: String
-    {
-        return stackView.content
+        
+        super.init()
+        
+        addSubview(stackView)
     }
     
     private var indentation: String
