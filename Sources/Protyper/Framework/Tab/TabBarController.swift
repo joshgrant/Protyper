@@ -33,7 +33,7 @@ open class TabBarController: ViewController
         }
         
         self.tabBar = TabBar(items: items)
-        super.init(title: nil, view: View())
+        super.init(title: nil)
         
         for tab in tabs
         {
@@ -41,16 +41,29 @@ open class TabBarController: ViewController
         }
     }
     
+    open override func loadView()
+    {
+        
+    }
+    
     // MARK: - Functions
     
     public func select(tab: ViewController)
     {
+        // This should remove the other view controller as a child
+        // And should add the new view controller as a child
+        
+        
+        
         let index = tabs.firstIndex { $0 == tab }
         selectedIndex = index ?? 0
     }
     
     open override func viewDidAppear()
     {
+        // TODO: Yeah, not the right place for this...
+        // These should be managed by the view...
+        // We should add the active tab and the tab bar as subviews to the controller's view...
         super.viewDidAppear()
         activeTab.viewDidAppear()
         tabBar.draw()

@@ -11,8 +11,8 @@ open class NavigationController: ViewController
 {
     // MARK: - Variables
     
-    public var stack: [ViewController]
     public var navigationBar: NavigationBar
+    public var stack: [ViewController]
     public var activeController: ViewController
     
     override public var tabBarItem: TabBarItem? {
@@ -32,7 +32,7 @@ open class NavigationController: ViewController
         self.stack = [root]
         self.activeController = root
         self.navigationBar = NavigationBar(items: [])
-        super.init(title: nil, view: View())
+        super.init(title: nil)
         root.navigationController = self
         updateItems()
     }
@@ -40,6 +40,7 @@ open class NavigationController: ViewController
     public func updateItems()
     {
         var items: [NavigationItem] = []
+        
         if let item = activeController.navigationItem
         {
             items += [item]
