@@ -9,31 +9,25 @@ import Foundation
 
 open class TableViewCell: View
 {
-    private var stackView: StackView
+    private var stackView = StackView()
     
-    public var accessories: [CellAccessory]
+    public var components: [CellComponent]
     
     public var indentationLevel: Int = 0
     public var indentationWidth: Int = 0
     public var indentsAccessories: Bool = true
     
-    public init(contentView: View?, accessories: [CellAccessory])
+    public init(components: [CellComponent])
     {
-        self.stackView = StackView()
-        self.accessories = accessories
+        self.components = components
         
-        let leadingAccessories = accessories.filter { $0.placement == .leading }
-        let unalignedAccessories = accessories.filter { $0.placement == .none}
-        let trailingAccessories = accessories.filter { $0.placement == .trailing }
+        let leadingAccessories = components.filter { $0.placement == .leading }
+        let unalignedAccessories = components.filter { $0.placement == .none}
+        let trailingAccessories = components.filter { $0.placement == .trailing }
         
         for leading in leadingAccessories
         {
             stackView.addArrangedSubview(leading.view)
-        }
-        
-        if let contentView = contentView
-        {
-            stackView.addArrangedSubview(contentView)
         }
         
         for unaligned in unalignedAccessories

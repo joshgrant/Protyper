@@ -59,6 +59,7 @@ open class NavigationController: ViewController
     open override func loadView()
     {
         view = View()
+        view?.addSubview(navigationBar)
         addNavigationControllerToViewHierarchy()
     }
     
@@ -66,13 +67,6 @@ open class NavigationController: ViewController
     {
         super.viewWillAppear()
         updateItems()
-    }
-    
-    override public func viewDidAppear()
-    {
-        super.viewDidAppear()
-        navigationBar.draw()
-        activeController.viewDidAppear()
     }
     
     override public func handle(command: Command)

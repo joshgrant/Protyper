@@ -34,8 +34,6 @@ open class View: Responder, Identifiable
     /// NOTE: I'm assuming if `true`, that the view doesn't forward events to the parent view controller
     var isExclusiveTouch: Bool = false
     
-    private var needsToRedraw: Bool = false
-    
     /// UIView implements this method and returns the UIViewController object that manages it (if it has one) or its superview (if it doesn’t)
     override var next: Responder?
     {
@@ -45,14 +43,19 @@ open class View: Responder, Identifiable
     
     override public init() { }
     
-    open func draw() { }
-    
-    func setNeedsDisplay()
+    // TODO: What's the better mechanism for this?
+    // How else are we supposed to get the views to draw properly?
+    public func update()
     {
-        needsToRedraw = true
-        // Tells the system to redraw this view on the next update cycle
-        superview?.setNeedsDisplay()
+        draw()
+        
+        for subview in subviews
+        {
+            subview.update()
+        }
     }
+    
+    open func draw() { }
     
     func addSubview(_ view: View)
     {

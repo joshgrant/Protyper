@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CellAccessory
+public struct CellComponent
 {
     public enum AccessoryType
     {
@@ -24,7 +24,7 @@ public struct CellAccessory
         case none
         case trailing
         
-        public static func < (lhs: CellAccessory.Placement, rhs: CellAccessory.Placement) -> Bool
+        public static func < (lhs: CellComponent.Placement, rhs: CellComponent.Placement) -> Bool
         {
             return lhs.rawValue < rhs.rawValue
         }
@@ -40,7 +40,7 @@ public struct CellAccessory
     internal var placement: Placement
     internal var view: View
     
-    public static func index(_ index: Int) -> CellAccessory
+    public static func index(_ index: Int) -> CellComponent
     {
         let view = TextView(text: String(index))
         return .init(accessoryType: .index,
@@ -48,7 +48,7 @@ public struct CellAccessory
                      view: view)
     }
     
-    public static func disclosureIndicator() -> CellAccessory
+    public static func disclosureIndicator() -> CellComponent
     {
         let view = TextView(text: "􀆊")
         return .init(accessoryType: .disclosureIndicator,
@@ -56,7 +56,7 @@ public struct CellAccessory
                      view: view)
     }
     
-    public static func checkmark() -> CellAccessory
+    public static func checkmark() -> CellComponent
     {
         let view = TextView(text: "􀆅")
         return .init(accessoryType: .checkmark,
@@ -64,7 +64,7 @@ public struct CellAccessory
                      view: view)
     }
     
-    public static func label(text: String) -> CellAccessory
+    public static func label(text: String) -> CellComponent
     {
         let view = TextView(text: text)
         return .init(accessoryType: .label,
@@ -72,7 +72,7 @@ public struct CellAccessory
                      view: view)
     }
     
-    public static func customView(configuration: CustomViewConfiguration) -> CellAccessory
+    public static func customView(configuration: CustomViewConfiguration) -> CellComponent
     {
         return .init(accessoryType: .customView,
                      placement: configuration.placement,

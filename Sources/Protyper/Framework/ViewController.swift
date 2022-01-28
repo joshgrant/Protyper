@@ -29,14 +29,6 @@ open class ViewController: Responder, Identifiable
     }
     
     public var title: String? = nil
-    {
-        didSet
-        {
-            // TODO: Is this right?
-            navigationItem = .init(title: title ?? "")
-            tabBarItem = .init(title: title ?? "")
-        }
-    }
     
     /// If the recipient is a child of a container view controller, this property holds the view controller it is contained in.
     /// If the recipient has no parent, the value in this property is nil.
@@ -69,11 +61,25 @@ open class ViewController: Responder, Identifiable
     /// View controllers load their views lazily. Accessing the view property for the first time loads or creates the view controller’s views.
     /// A view controller’s root view is always sized to fit its assigned space.
     /// TODO: When converting to UIKit, override `loadView` instead of this property
-    public var view: View?
+    private var _view: View?
+    public var view: View? {
+        get
+        {
+            if _view == nil {
+                loadView()
+                viewDidLoad()
+            }
+            return _view
+        }
+        set { _view = newValue }
+    }
     
     public init(title: String? = nil)
     {
         self.title = title
+        
+        navigationItem = .init(title: title ?? "")
+        tabBarItem = .init(title: title ?? "")
     }
 
     // MARK: - View lifecycle

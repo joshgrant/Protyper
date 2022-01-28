@@ -17,6 +17,12 @@ open class Window: View
     
     override public init() { }
     
+    public override func update()
+    {
+        // TODO: This seems strange
+        rootViewController?.view?.update()
+    }
+    
     override open func draw()
     {
         rootViewController?.view?.draw()
@@ -24,9 +30,6 @@ open class Window: View
     
     open func makeVisible()
     {
-        rootViewController?.loadView()
-        rootViewController?.viewDidLoad()
-        
         rootViewController?.viewWillAppear()
         rootViewController?.view?.draw()
         rootViewController?.viewDidAppear()
