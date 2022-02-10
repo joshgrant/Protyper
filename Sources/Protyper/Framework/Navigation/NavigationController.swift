@@ -39,19 +39,17 @@ open class NavigationController: ViewController
     
     public func updateItems()
     {
-        var items: [NavigationItem] = []
+        navigationBar.items = []
+        
+        if stack.count > 1
+        {
+            navigationBar.items += [.back]
+        }
         
         if let item = activeController.navigationItem
         {
-            items += [item]
+            navigationBar.items += [item]
         }
-        
-        if activeController != stack.first
-        {
-            items.insert(.back, at: 0)
-        }
-        
-        self.navigationBar = NavigationBar(items: items)
     }
     
     // MARK: - Functions
@@ -98,6 +96,11 @@ open class NavigationController: ViewController
     /// control to the previous controller
     public func pop() -> ViewController?
     {
+        defer
+        {
+            updateItems()
+        }
+        
         guard stack.count > 1 else { return nil }
         
         removeNavigationControllerFromViewHierarchy()
