@@ -115,11 +115,3 @@ open class View: Responder, Identifiable
         return superview?.isDescendant(of: view) ?? false
     }
 }
-
-extension View: Equatable
-{
-    public static func == (lhs: View, rhs: View) -> Bool
-    {
-        lhs.id == rhs.id
-    }
-}

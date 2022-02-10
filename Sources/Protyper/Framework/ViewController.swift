@@ -157,19 +157,3 @@ extension ViewController
         didMove(toParent: nil)
     }
 }
-
-extension ViewController: Equatable
-{
-    public static func ==(lhs: ViewController, rhs: ViewController) -> Bool
-    {
-        return lhs.id == rhs.id
-    }
-}
-
-extension ViewController: Hashable
-{
-    public func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(id)
-    }
-}

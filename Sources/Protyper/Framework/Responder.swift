@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class Responder
+open class Responder: NSObject
 {
     /// The next object in the responder chain or nil if this is the last object in the chain.
     var next: Responder? = nil

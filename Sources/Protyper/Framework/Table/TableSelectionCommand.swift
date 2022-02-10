@@ -18,10 +18,10 @@ internal class TableSelectionCommand: Command
         super.init(rawString: command.rawString)
         
         let sectionRowRange = command.rawString.range(
-            of: #"[0-9]\.[0-9]"#,
+            of: #"[0-9]+\.[0-9]+"#,
             options: .regularExpression)
         
-        let rowRange = command.rawString.range(of: #"[0-9]"#, options: .regularExpression)
+        let rowRange = command.rawString.range(of: #"[0-9]+"#, options: .regularExpression)
         
         let commandRange = command.rawString.range(
             of: #"[A-Za-z]+"#,
