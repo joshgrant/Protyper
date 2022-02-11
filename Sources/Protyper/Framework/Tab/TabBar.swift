@@ -22,7 +22,7 @@ open class TabBar: View
         output += .divider
         output += .newline
         
-        output += items.description
+        output += String.maximumPadding(elements: items.map { $0.description }, width: consoleWidth, padLeft: true)
         output += .newline
         
         output += .divider

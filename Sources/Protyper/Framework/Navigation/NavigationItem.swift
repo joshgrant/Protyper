@@ -23,12 +23,12 @@ extension NavigationItem: CustomStringConvertible
 {
     public var description: String
     {
-        let right = "          \(rightItem ?? "")"
+        let right = "\(rightItem ?? "")"
         return "\(title)\(right)"
     }
 }
 
 extension NavigationItem
 {
-    static let back = NavigationItem(title: "< ")
+    static let back = NavigationItem(title: "<")
 }

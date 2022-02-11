@@ -43,19 +43,13 @@ open class View: Responder, Identifiable
     
     override public init() { }
     
-    // TODO: What's the better mechanism for this?
-    // How else are we supposed to get the views to draw properly?
-    public func update()
+    public func draw()
     {
-        draw()
-        
         for subview in subviews
         {
-            subview.update()
+            subview.draw()
         }
     }
-    
-    open func draw() { }
     
     func addSubview(_ view: View)
     {

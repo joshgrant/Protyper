@@ -35,7 +35,7 @@ open class TableView: View
             {
                 let indexPath = Index(section: section, row: row)
                 let cell = dataSource.tableView(self, cellForRowAt: indexPath)
-                cell.update() // TODO: Update v Draw is a pain
+                cell.draw()
                 print("")
             }
             

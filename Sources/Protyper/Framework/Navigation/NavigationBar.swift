@@ -19,13 +19,10 @@ open class NavigationBar: View
     
     open override func draw()
     {
-        var output = ""
+        var output: String = .newline
         
-        output += .newline * 5
-        for item in items
-        {
-            output += item.description
-        }
+        output += .maximumPadding(elements: items.map { $0.description }, width: consoleWidth)
+        
         output += .newline
         output += .divider
         output += .newline
