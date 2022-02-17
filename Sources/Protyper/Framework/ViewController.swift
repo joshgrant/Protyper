@@ -23,8 +23,8 @@ open class ViewController: Responder, Identifiable
     
     /// UIViewController similarly implements the method and returns its view’s superview.
     /// TODO: Presented view controller
-    override var next: Responder? {
-        get { presentedViewController ?? view?.superview }
+    public override var next: Responder? {
+        get { presentedViewController ?? view }
         set { super.next = newValue }
     }
     
@@ -100,6 +100,16 @@ open class ViewController: Responder, Identifiable
     open func viewDidAppear() { }
     open func viewWilDisappear() { }
     open func viewDidDisappear() { }
+    
+    open override func handle(command: Command)
+    {
+        switch command.rawString {
+        case "dismiss":
+            dismiss()
+        default:
+            super.handle(command: command)
+        }
+    }
 }
 
 // MARK: - Modal presentation
@@ -111,16 +121,31 @@ extension ViewController
         guard presentedViewController == nil else { fatalError("Already presenting a view controller") }
         self.presentedViewController = controller
         controller.presentingViewController = self
+        
+        guard let controllerView = controller.view else { return }
+        // Adds the subview, but we really want to replace the current view...
+        view?.window?.addSubview(controllerView)
     }
     
     open func dismiss()
     {
         guard let presentingViewController = presentingViewController else
         {
-            navigationController?.dismiss()
-            return
+            for child in children
+            {
+                child.dismiss()
+            }
+            return 
         }
-
+        
+        
+//        guard let presentingViewController = presentingViewController else
+//        {
+//            navigationController?.dismiss()
+//            return
+//        }
+//
+        presentingViewController.presentedViewController?.view?.removeFromSuperview()
         presentingViewController.presentedViewController = nil
         self.presentingViewController = nil
     }

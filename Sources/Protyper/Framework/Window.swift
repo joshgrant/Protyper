@@ -14,7 +14,7 @@ click menu item "Clear Console" of menu 1 of menu item "Debug Workflow" of menu 
 end tell
 """
 
-/// No need to specify that the window is key, I mean, how many can there be in a command line app?
+/// Do we need to consider key windows?
 open class Window: View
 {
     /// The root view controller provides the content view of the window.
@@ -22,7 +22,8 @@ open class Window: View
     /// installs the view controller’s view as the content view of the window.
     public var rootViewController: ViewController?
     
-    private lazy var script: NSAppleScript = {
+    private lazy var script: NSAppleScript =
+    {
         let script = NSAppleScript(source: source)
         var error: NSDictionary?
         script?.compileAndReturnError(&error)
@@ -30,7 +31,16 @@ open class Window: View
         return script!
     }()
     
-    override public init() { }
+    public init(rootViewController: ViewController?)
+    {
+        super.init()
+        
+        guard let controller = rootViewController else { return }
+        self.rootViewController = controller
+        controller.loadView()
+        guard let view = controller.view else { return }
+        addSubview(view)
+    }
     
     public func clear()
     {
@@ -39,8 +49,8 @@ open class Window: View
         if let error = error { assertionFailure(error.description) }
     }
     
-    override open func draw()
-    {
-        rootViewController?.view?.draw()
-    }
+//    override open func draw()
+//    {
+//        rootViewController?.view?.draw()
+//    }
 }

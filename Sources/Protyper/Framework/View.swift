@@ -24,6 +24,13 @@ open class View: Responder, Identifiable
     var superview: View? = nil
     var subviews: [View] = []
     
+    /// The view's window, or nil if there isn't one.
+    var window: Window? {
+        if let self = self as? Window { return self }
+        guard let superview = superview else { return nil }
+        return superview.window
+    }
+    
     /// A Boolean value that determines whether the view is hidden.
     var isHidden: Bool = false
     
@@ -35,7 +42,7 @@ open class View: Responder, Identifiable
     var isExclusiveTouch: Bool = false
     
     /// UIView implements this method and returns the UIViewController object that manages it (if it has one) or its superview (if it doesn’t)
-    override var next: Responder?
+    public override var next: Responder?
     {
         get { controller ?? superview }
         set { super.next = newValue }

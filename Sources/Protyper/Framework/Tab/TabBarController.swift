@@ -11,6 +11,11 @@ open class TabBarController: ViewController
 {
     // MARK: - Variables
     
+    public override var next: Responder? {
+        get { activeTab }
+        set { super.next = newValue }
+    }
+    
     public let tabs: [ViewController]
     public var tabBar: TabBar
     public var selectedIndex: Int {

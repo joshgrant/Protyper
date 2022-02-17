@@ -10,7 +10,7 @@ import Foundation
 open class Responder: NSObject
 {
     /// The next object in the responder chain or nil if this is the last object in the chain.
-    var next: Responder? = nil
+    open var next: Responder? = nil
     var isFirstResponder: Bool = false
     var canBecomeFirstResponder: Bool = true
     var canResignFirstResponder: Bool = true

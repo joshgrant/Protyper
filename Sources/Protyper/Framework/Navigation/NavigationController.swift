@@ -11,6 +11,11 @@ open class NavigationController: ViewController
 {
     // MARK: - Variables
     
+    public override var next: Responder? {
+        get { activeController }
+        set { super.next = newValue }
+    }
+    
     public var navigationBar: NavigationBar
     public var stack: [ViewController]
     public var activeController: ViewController
@@ -74,7 +79,7 @@ open class NavigationController: ViewController
         case "back":
             _ = pop()
         default:
-            activeController.handle(command: command)
+            super.handle(command: command)
         }
     }
     
