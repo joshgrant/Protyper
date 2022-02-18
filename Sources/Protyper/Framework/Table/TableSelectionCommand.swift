@@ -7,13 +7,13 @@
 
 import Foundation
 
-internal class TableSelectionCommand: Command
+public class TableSelectionCommand: Command
 {
-    internal var section: Int?
-    internal var row: Int?
-    internal var action: String?
+    public var section: Int?
+    public var row: Int?
+    public var action: String?
     
-    internal init?(command: Command)
+    public init?(command: Command)
     {
         super.init(rawString: command.rawString)
         
@@ -24,7 +24,7 @@ internal class TableSelectionCommand: Command
         let rowRange = command.rawString.range(of: #"[0-9]+"#, options: .regularExpression)
         
         let commandRange = command.rawString.range(
-            of: #"[A-Za-z]+"#,
+            of: #"[A-Za-z\+\-]+"#,
             options: .regularExpression)
         
         if let range = sectionRowRange

@@ -138,13 +138,6 @@ extension ViewController
             return 
         }
         
-        
-//        guard let presentingViewController = presentingViewController else
-//        {
-//            navigationController?.dismiss()
-//            return
-//        }
-//
         presentingViewController.presentedViewController?.view?.removeFromSuperview()
         presentingViewController.presentedViewController = nil
         self.presentingViewController = nil
